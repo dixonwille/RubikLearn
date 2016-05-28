@@ -1,34 +1,56 @@
 package Cube;
 
+import javafx.geometry.Side;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dixon on 5/26/2016.
  */
 public enum SideType {
-    TOP(Color.YELLOW, 't'),
-    BOTTOM(Color.WHITE, 'd'),
-    LEFT(Color.BLUE, 'l'),
-    RIGHT(Color.GREEN, 'r'),
-    FRONT(Color.RED, 'f'),
-    BACK(Color.ORANGE, 'b');
+    TOP(ColorType.YELLOW),
+    DOWN(ColorType.WHITE),
+    LEFT(ColorType.BLUE),
+    RIGHT(ColorType.GREEN),
+    FRONT(ColorType.RED),
+    BACK(ColorType.ORANGE);
 
-    public Color DefaultColor;
-    private char _posIndicator;
-    SideType(Color color, char pos){
-        this.DefaultColor = color;
-        this._posIndicator = pos;
-    }
-    public char GetIndicator(){
-        return this._posIndicator;
+    private ColorType _defaultColor;
+
+    SideType(ColorType color){
+        this._defaultColor = color;
     }
 
-    public static SideType Find(char ch){
+    public ColorType GetDefaultColor(){
+        return this._defaultColor;
+    }
+
+    public SideType GetOpposite(){
+        switch (this){
+            case TOP:
+                return DOWN;
+            case DOWN:
+                return TOP;
+            case LEFT:
+                return RIGHT;
+            case RIGHT:
+                return LEFT;
+            case FRONT:
+                return BACK;
+            default:
+                return FRONT;
+        }
+    }
+
+    public List<SideType> GetPossible(){
+        List<SideType> possible = new ArrayList<>();
         for(SideType side: SideType.values()){
-            if (Character.toLowerCase(side.GetIndicator()) == Character.toLowerCase(ch)){
-                return side;
+            if(side != this && side != this.GetOpposite()){
+                possible.add(side);
             }
         }
-        return null;
+        return possible;
     }
 }

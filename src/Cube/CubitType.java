@@ -1,5 +1,7 @@
 package Cube;
 
+import javafx.geometry.Side;
+
 /**
  * Created by dixon on 5/26/2016.
  */
@@ -8,15 +10,19 @@ public enum CubitType {
     CENTER(1),
     EDGE(2);
 
-    public int Sides;
+    private int _sides;
 
     CubitType(int sides){
-        this.Sides = sides;
+        this._sides = sides;
     }
 
-    public static CubitType Find(String Position){
+    public int GetNumberOfSides(){
+        return this._sides;
+    }
+
+    public static CubitType Find(SideType[] position){
         for(CubitType cubit: CubitType.values()){
-            if(cubit.Sides == Position.length()){
+            if(cubit.GetNumberOfSides() == position.length){
                 return cubit;
             }
         }

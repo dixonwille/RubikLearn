@@ -7,57 +7,49 @@ import java.util.*;
 /**
  * Created by dixon on 5/26/2016.
  */
-public class Cubit {
-    public String Position;
+public class Cubit{
     public CubitType Type;
-    public Map<SideType,Color> Colors;
+    public Map<SideType,ColorType> Colors;
 
-    private static final Map<CubitType, String[]> possiblePositions;
-    static {
-        possiblePositions = new HashMap<>();
-        possiblePositions.put(CubitType.CENTER, new String[]{"t","d","l","r","f","b"});
-        possiblePositions.put(CubitType.CORNER, new String[]{"tlf","trf","dlf","drf","tlb","trb","dlb","drb"});
-        possiblePositions.put(CubitType.EDGE, new String[]{"tf","tl","tb","tr","df","dl","db","dr","rf","rb","lf","lb"});
-    }
-
-    public Cubit(String position) throws Exception{
-        this.Position = position;
-        CubitType type = CubitType.Find(this.Position);
+    public Cubit(SideType[] position) throws Exception{
+        Colors = new HashMap<>();
+        //Initialize the type of cubit
+        CubitType type = CubitType.Find(position);
         if (type == null){
-            throw new Exception("Could not find cubit type for " + this.Position);
+            throw new Exception("Could not find cubit type for " + position.toString());
         }
         this.Type = type;
-        if (!hasValidPosition()){
-            throw new Exception("Not a valid position of " + this.Type + " with " + this.Position);
+
+        //Set the default color (change later if need be)
+        for(SideType side: position){
+            this.Colors.put(side,side.GetDefaultColor());
+        }
+
+        //Check that we have a valid position set
+        if (!isValid()){
+            throw new Exception("Not a valid position of " + this.Type + " with " + position.toString());
         }
     }
 
-    public void SetDefaultColors() throws Exception{
-        Map<SideType,Color> colors = new HashMap<>();
-        for (char ch: this.Position.toCharArray()) {
-            SideType sideType = SideType.Find(ch);
-            if(sideType == null){
-                throw new Exception("Could not find a side type for " + ch);
-            }
-            colors.put(sideType, sideType.DefaultColor);
-        }
-        this.Colors = colors;
-    }
-
-    private boolean hasValidPosition(){
-        if(this.Position.length() < 1 && this.Position.length() > 3){
+    private boolean isValid(){
+        if(this.Colors.entrySet().size() != this.Type.GetNumberOfSides()){
             return false;
         }
 
-        List<Character> chs = new ArrayList<>();
-        for(char ch: this.Position.toCharArray()){
-            if(chs.indexOf(Character.toLowerCase(ch)) > -1){
+        List<ColorType> colors = new ArrayList<>();
+        List<SideType> sides = new ArrayList<>();
+        for(Map.Entry<SideType,ColorType> sideColor: this.Colors.entrySet()){
+            //Check if duplicated Side or Color exists
+            if(sides.indexOf(sideColor.getKey()) > -1 || colors.indexOf(sideColor.getValue()) > -1){
+                return false;
+                //Check if the opposite Side or Color exists
+            }else if(sides.indexOf(sideColor.getKey().GetOpposite()) > -1 || colors.indexOf(sideColor.getValue().GetOpposite()) > -1) {
                 return false;
             }else{
-                chs.add(Character.toLowerCase(ch));
+                sides.add(sideColor.getKey());
+                colors.add(sideColor.getValue());
             }
         }
-
-        return Arrays.asList(possiblePositions.get(this.Type)).indexOf(this.Position) > -1;
+        return true;
     }
 }

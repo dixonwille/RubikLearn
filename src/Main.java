@@ -2,10 +2,12 @@
  * Created by dixon on 5/26/2016.
  */
 
-import Cube.CubeCanvas;
+import Cube.Cube;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -18,14 +20,19 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        window = primaryStage;
-        window.setTitle("Rubik Learn");
-        Group root = new Group();
-        CubeCanvas canvas = new CubeCanvas(300,250);
+        try {
+            Cube cube = new Cube();
+            window = primaryStage;
+            window.setTitle("Rubik Learn");
+            Label label = new Label(Integer.toString(cube.NumberOfCubits()));
+            StackPane layout = new StackPane();
+            layout.getChildren().add(label);
 
-        root.getChildren().add(canvas);
-        window.setScene(new Scene(root));
+            window.setScene(new Scene(layout, 300, 250));
 
-        window.show();
+            window.show();
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 }
