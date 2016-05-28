@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 /**
  * Created by dixon on 5/27/2016.
  */
-public enum ColorType {
+enum ColorType {
     YELLOW(Color.YELLOW),
     WHITE(Color.WHITE),
     RED(Color.RED),
@@ -19,11 +19,7 @@ public enum ColorType {
         this._color = color;
     }
 
-    public Color GetColor(){
-        return _color;
-    }
-
-    public ColorType GetOpposite(){
+    ColorType GetOpposite(){
         switch (this){
             case YELLOW:
                 return WHITE;

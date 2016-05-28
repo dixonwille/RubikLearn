@@ -8,7 +8,15 @@ import java.util.List;
  */
 public class Cube {
     private List<Cubit> _cubits;
+    private List<Side> _sides;
+
     public Cube() throws Exception{
+        createCubits();
+        separateSides();
+    }
+
+    //Cubits are setup here so that I have the minimum required cubits
+    private void createCubits() throws Exception{
         _cubits = new ArrayList<>();
         List<SideType> sidesFinished = new ArrayList<>();
         for(SideType centerSide: SideType.values()){
@@ -35,4 +43,13 @@ public class Cube {
             sidesFinished.add(centerSide);
         }
     }
+
+    private void separateSides(){
+        _sides = new ArrayList<>();
+        for(SideType side: SideType.values()){
+            _sides.add(new Side(side,Side.GetCubits(side,_cubits)));
+        }
+    }
+
+
 }
