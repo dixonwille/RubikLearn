@@ -42,6 +42,7 @@ enum SideType {
         }
     }
 
+    //Gets a list of possible other sides from this side
     List<SideType> GetPossible(){
         List<SideType> possible = new ArrayList<>();
         for(SideType side: SideType.values()){
@@ -54,8 +55,8 @@ enum SideType {
 
     //Less Than Map for base side.
     //This is to be able to orient the cubits on each side correctly
-    //Defines the top left as the smallest number (first and second numbers)
-    //Defines the bottom right as the largest number (third and fourth number)
+    //Defines the top left of matrix as the smallest number (first and second numbers)
+    //Defines the bottom right of matrix as the largest number (third and fourth number)
     //The last two sides are a tie breaker which will be less than the other indeterminant.
     //Tie breaker is used when the opposite corners cannot be compared.
     //USED ONLY WITH CORNERS AND THE EDGES CAN BE INFERRED FROM THERE

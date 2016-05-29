@@ -19,6 +19,10 @@ enum ColorType {
         this._color = color;
     }
 
+    Color GetFXColor(){
+        return this._color;
+    }
+
     ColorType GetOpposite(){
         switch (this){
             case YELLOW:

@@ -10,13 +10,18 @@ public class Cube {
     private List<Cubit> _cubits;
     private List<Side> _sides;
 
-    public Cube() throws Exception{
-        createCubits();
-        separateSides();
+    public Cube(){
+        try {
+            createCubits();
+            separateSides();
+        }catch (CubeException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
     //Cubits are setup here so that I have the minimum required cubits
-    private void createCubits() throws Exception{
+    private void createCubits() throws CubeException{
         _cubits = new ArrayList<>();
         List<SideType> sidesFinished = new ArrayList<>();
         for(SideType centerSide: SideType.values()){

@@ -10,13 +10,13 @@ class Cubit{
     private CubitType _type;
     private Map<SideType,ColorType> _colors;
 
-    //TODO create my own error types
-    Cubit(SideType[] position) throws Exception{
+
+    Cubit(SideType[] position) throws CubeException{
         _colors = new HashMap<>();
         //Initialize the type of cubit
         CubitType type = CubitType.Find(position);
         if (type == null){
-            throw new Exception("Could not find cubit type for " + SideType.toString(position));
+            throw new CubeException("Could not find cubit type for " + SideType.toString(position));
         }
         this._type = type;
 
@@ -27,7 +27,7 @@ class Cubit{
 
         //Check that we have a valid position set
         if (!isValid()){
-            throw new Exception("Not a valid position of " + this._type + " with " + SideType.toString(position));
+            throw new CubeException("Not a valid position of " + this._type + " with " + SideType.toString(position));
         }
     }
 
@@ -50,33 +50,11 @@ class Cubit{
         otherSides.removeAll(cubit._colors.keySet());
         return otherSides;
     }
-
-    private boolean isValid(){
-        if(this._colors.entrySet().size() != this._type.GetNumberOfSides()){
-            return false;
-        }
-
-        List<ColorType> colors = new ArrayList<>();
-        List<SideType> sides = new ArrayList<>();
-        for(Map.Entry<SideType,ColorType> sideColor: this._colors.entrySet()){
-            //Check if duplicated Side or Color exists
-            if(sides.indexOf(sideColor.getKey()) > -1 || colors.indexOf(sideColor.getValue()) > -1){
-                return false;
-                //Check if the opposite Side or Color exists
-            }else if(sides.indexOf(sideColor.getKey().GetOpposite()) > -1 || colors.indexOf(sideColor.getValue().GetOpposite()) > -1) {
-                return false;
-            }else{
-                sides.add(sideColor.getKey());
-                colors.add(sideColor.getValue());
-            }
-        }
-        return true;
-    }
-    //TODO Create my own error types
-    boolean cornerLessThan(SideType base, Cubit query) throws Exception{
+    
+    boolean cornerLessThan(SideType base, Cubit query) throws CubeException{
         //Only compare corners
         if(this._type != CubitType.CORNER || query._type != CubitType.CORNER) {
-            throw new Exception("Can only compare corners");
+            throw new CubeException("Can only compare corners");
         }
 
         List<SideType> ltMap = base.lTMap();
@@ -88,7 +66,7 @@ class Cubit{
 
         //Only compare cubits on the same sides
         if(thisDiff.size() > CubitType.CORNER.GetNumberOfSides() - 1 || queryDiff.size() > CubitType.CORNER.GetNumberOfSides() - 1){
-            throw new Exception("Corners must have a side in common");
+            throw new CubeException("Corners must have a side in common");
         }
 
         //Simple comparison if they are neighbors
@@ -119,6 +97,28 @@ class Cubit{
 
         //How did you get here? I went through all possibilities
         return false;
+    }
+
+    private boolean isValid(){
+        if(this._colors.entrySet().size() != this._type.GetNumberOfSides()){
+            return false;
+        }
+
+        List<ColorType> colors = new ArrayList<>();
+        List<SideType> sides = new ArrayList<>();
+        for(Map.Entry<SideType,ColorType> sideColor: this._colors.entrySet()){
+            //Check if duplicated Side or Color exists
+            if(sides.indexOf(sideColor.getKey()) > -1 || colors.indexOf(sideColor.getValue()) > -1){
+                return false;
+                //Check if the opposite Side or Color exists
+            }else if(sides.indexOf(sideColor.getKey().GetOpposite()) > -1 || colors.indexOf(sideColor.getValue().GetOpposite()) > -1) {
+                return false;
+            }else{
+                sides.add(sideColor.getKey());
+                colors.add(sideColor.getValue());
+            }
+        }
+        return true;
     }
 
     static List<Cubit> GetCubitsOfType(CubitType type, List<Cubit> cubits){

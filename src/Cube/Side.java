@@ -76,8 +76,9 @@ class Side{
                 int o1Ans = o1.cornerLessThan(_side, o2) ? 1 : 0;
                 int o2Ans = o2.cornerLessThan(_side, o1) ? 1 : 0;
                 return o2Ans - o1Ans;
-            }catch (Exception e){
-                System.out.println(e);
+            }catch (CubeException e){
+                e.printStackTrace();
+                System.exit(1);
                 return 0;
             }
         });
