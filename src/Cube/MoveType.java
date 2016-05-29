@@ -3,7 +3,7 @@ package Cube;
 /**
  * Created by dixon on 5/27/2016.
  */
-public enum MoveType {
+enum MoveType {
     FC,
     FCC,
     BC,

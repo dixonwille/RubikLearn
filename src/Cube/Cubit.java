@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by dixon on 5/26/2016.
  */
-class Cubit implements Comparable<Cubit>{
+class Cubit{
     private CubitType _type;
     private Map<SideType,ColorType> _colors;
 
@@ -41,7 +41,11 @@ class Cubit implements Comparable<Cubit>{
         return false;
     }
 
-    private List<SideType> otherSides(Cubit cubit){
+    List<SideType> GetSides(){
+        return new ArrayList<>(this._colors.keySet());
+    }
+
+    List<SideType> OtherSides(Cubit cubit){
         //This is so we do not modify the original cubits sides.
         List<SideType> otherSides = new ArrayList<>(this._colors.keySet());
         otherSides.removeAll(cubit._colors.keySet());
@@ -80,8 +84,8 @@ class Cubit implements Comparable<Cubit>{
         List<SideType> comparisonMap = ltMap.subList(0,4);
         List<SideType> tieBreaker = ltMap.subList(4,6);
         //The way the cube is made only sides left are opposite of each other.
-        List<SideType> thisDiff = this.otherSides(query);
-        List<SideType> queryDiff = query.otherSides(this);
+        List<SideType> thisDiff = this.OtherSides(query);
+        List<SideType> queryDiff = query.OtherSides(this);
 
         //Only compare cubits on the same sides
         if(thisDiff.size() > CubitType.CORNER.GetNumberOfSides() - 1 || queryDiff.size() > CubitType.CORNER.GetNumberOfSides() - 1){
@@ -126,10 +130,5 @@ class Cubit implements Comparable<Cubit>{
             }
         });
         return cubitsOfT;
-    }
-
-    @Override
-    public int compareTo(Cubit other) {
-        return 0;
     }
 }
