@@ -1,6 +1,5 @@
 package Cube;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -17,7 +16,7 @@ class Cubit{
         //Initialize the type of cubit
         CubitType type = CubitType.Find(position);
         if (type == null){
-            throw new Exception("Could not find cubit type for " + position);
+            throw new Exception("Could not find cubit type for " + SideType.toString(position));
         }
         this._type = type;
 
@@ -28,7 +27,7 @@ class Cubit{
 
         //Check that we have a valid position set
         if (!isValid()){
-            throw new Exception("Not a valid position of " + this._type + " with " + position);
+            throw new Exception("Not a valid position of " + this._type + " with " + SideType.toString(position));
         }
     }
 

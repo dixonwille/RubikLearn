@@ -1,8 +1,5 @@
 package Cube;
 
-import javafx.geometry.Side;
-import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -77,5 +74,13 @@ enum SideType {
             default:
                 return Arrays.asList(SideType.TOP, SideType.RIGHT, SideType.LEFT, SideType.DOWN, SideType.TOP, SideType.LEFT);
         }
+    }
+
+    static String toString(SideType[] sides){
+        String s = "";
+        for(SideType side: sides){
+            s += side.toString().toCharArray()[0];
+        }
+        return s;
     }
 }
