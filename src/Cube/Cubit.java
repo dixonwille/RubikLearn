@@ -111,6 +111,7 @@ class Cubit{
             if(sides.indexOf(sideColor.getKey()) > -1 || colors.indexOf(sideColor.getValue()) > -1){
                 return false;
                 //Check if the opposite Side or Color exists
+                //TODO Remove the GetOpposite!!!
             }else if(sides.indexOf(sideColor.getKey().GetOpposite()) > -1 || colors.indexOf(sideColor.getValue().GetOpposite()) > -1) {
                 return false;
             }else{

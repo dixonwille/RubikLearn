@@ -19,10 +19,12 @@ enum ColorType {
         this._color = color;
     }
 
+    //TODO Abstract this away out of this package. It belongs outside this package.
     Color GetFXColor(){
         return this._color;
     }
 
+    //TODO Remove this and use the sideTypes default color to infer opposite
     ColorType GetOpposite(){
         switch (this){
             case YELLOW:
