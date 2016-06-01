@@ -40,6 +40,10 @@ class Cubit{
         return false;
     }
 
+    ColorType GetColor(SideType side){
+        return _colors.get(side);
+    }
+
     List<SideType> GetSides(){
         return new ArrayList<>(this._colors.keySet());
     }
@@ -111,8 +115,7 @@ class Cubit{
             if(sides.indexOf(sideColor.getKey()) > -1 || colors.indexOf(sideColor.getValue()) > -1){
                 return false;
                 //Check if the opposite Side or Color exists
-                //TODO Remove the GetOpposite!!!
-            }else if(sides.indexOf(sideColor.getKey().GetOpposite()) > -1 || colors.indexOf(sideColor.getValue().GetOpposite()) > -1) {
+            }else if(sides.indexOf(sideColor.getKey().GetOpposite()) > -1 || colors.indexOf(sideColor.getKey().GetOpposite().GetDefaultColor()) > -1) {
                 return false;
             }else{
                 sides.add(sideColor.getKey());

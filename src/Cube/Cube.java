@@ -20,6 +20,10 @@ public class Cube {
         }
     }
 
+    public List<Side> GetSides(){
+        return _sides;
+    }
+
     //Cubits are setup here so that I have the minimum required cubits
     private void createCubits() throws CubeException{
         _cubits = new ArrayList<>();

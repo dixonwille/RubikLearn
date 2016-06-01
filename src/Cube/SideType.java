@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by dixon on 5/26/2016.
  */
-enum SideType {
+public enum SideType {
     TOP(ColorType.YELLOW),
     DOWN(ColorType.WHITE),
     LEFT(ColorType.BLUE),

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by dixon on 5/27/2016.
  */
-class Side{
+public class Side{
     private List<Cubit> _cubits;
     private SideType _side;
     private Cubit[][] _orderedCubits;
@@ -17,6 +17,21 @@ class Side{
         this._side = side;
         this._cubits = cubits;
         orderCubits();
+    }
+
+    public ColorType[][] GetColorMatrix(){
+        int size = _orderedCubits.length;
+        ColorType[][] colors = new ColorType[size][size];
+        for(int r = 0; r < size; r++){
+            for(int c = 0; c < size; c++){
+                colors[c][r] = _orderedCubits[c][r].GetColor(_side);
+            }
+        }
+        return colors;
+    }
+
+    public SideType GetSideType(){
+        return _side;
     }
 
     private void orderCubits(){
