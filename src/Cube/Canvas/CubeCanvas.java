@@ -14,7 +14,7 @@ public class CubeCanvas extends Canvas{
     private List<Side> _sides;
 
     public CubeCanvas(){
-        super(Default._width, Default._height);
+        super();
         setDefaults();
     }
 
