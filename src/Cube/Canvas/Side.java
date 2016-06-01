@@ -18,7 +18,7 @@ class Side {
     private GraphicsContext _gc;
     private static final Map<SideType, List<Integer>> _sidePosition;
     private SideType _side;
-    static private int _cubitsOnSide;
+    static private final int _cubitsOnSide = 3;
     static private double _cubitSize, _cubitPadding, _lineWidth;
 
     static {
@@ -35,9 +35,6 @@ class Side {
         _gc = gc;
         _side = side.GetSideType();
         _colorMatrix = side.GetColorMatrix();
-        if (_cubitsOnSide == 0) {
-            SetNumberOfCubits(_colorMatrix.length);
-        }
     }
 
     void Render() {
@@ -55,7 +52,7 @@ class Side {
     }
 
     //Static because all sides will have the same size
-    private static double Size() {
+    static double Size() {
         //includes padding only on one of the sides of the side
         return (_cubitsOnSide * (_cubitSize + _cubitPadding + (_lineWidth/2)));
     }
@@ -70,10 +67,6 @@ class Side {
 
     static void SetLineWidth(double lw){
         _lineWidth = lw;
-    }
-
-    private static void SetNumberOfCubits(int cubits) {
-        _cubitsOnSide = cubits;
     }
 
     private static Color GetPaintColor(ColorType colorType) {

@@ -44,6 +44,14 @@ public class CubeCanvas extends Canvas{
         Side.SetLineWidth(_gc.getLineWidth());
     }
 
+    public double GetWidth(){
+        return Side.Size() * 4 + (_gc.getLineWidth()/2);
+    }
+
+    public double GetHeight(){
+        return Side.Size() * 3 + (_gc.getLineWidth()/2);
+    }
+
     public void Render(Cube.Cube cube){
         _sides.clear();
         List<Cube.Side> sides = cube.GetSides();

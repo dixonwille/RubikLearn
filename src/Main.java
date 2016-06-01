@@ -25,10 +25,8 @@ public class Main extends Application {
             window.setTitle("Rubik Learn");
 
             CubeCanvas canvas = new CubeCanvas();
-            canvas.SetCubitSize(20);
-            canvas.SetCubitPadding(0);
-            canvas.SetWidth(1080);
-            canvas.SetHeight(720);
+            canvas.SetWidth(canvas.GetWidth());
+            canvas.SetHeight(canvas.GetHeight());
             canvas.Render(cube);
             Group root = new Group();
             root.getChildren().add(canvas);

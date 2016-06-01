@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 class Default {
     static double _width = 300;
     static double _height = 300;
-    static double _cubitSize = 10;
-    static double _cubitPadding = 2;
+    static double _cubitSize = 20;
+    static double _cubitPadding = 0;
     static Color _strokeColor = Color.BLACK;
     static double _lineWidth = 1;
 }
