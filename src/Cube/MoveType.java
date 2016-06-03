@@ -12,14 +12,14 @@ enum MoveType {
     LCC,
     RC,
     RCC,
-    TC,
-    TCC,
+    UC,
+    UCC,
     DC,
     DCC,
-    XC,
-    XCC,
-    YC,
-    YCC,
-    ZC,
-    ZCC;
+    MC,
+    MCC,
+    EC,
+    ECC,
+    SC,
+    SCC;
 }

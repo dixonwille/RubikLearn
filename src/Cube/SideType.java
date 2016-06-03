@@ -8,7 +8,7 @@ import java.util.List;
  * Created by dixon on 5/26/2016.
  */
 public enum SideType {
-    TOP(ColorType.YELLOW),
+    UP(ColorType.YELLOW),
     DOWN(ColorType.WHITE),
     LEFT(ColorType.BLUE),
     RIGHT(ColorType.GREEN),
@@ -27,10 +27,10 @@ public enum SideType {
 
     SideType GetOpposite(){
         switch (this){
-            case TOP:
+            case UP:
                 return DOWN;
             case DOWN:
-                return TOP;
+                return UP;
             case LEFT:
                 return RIGHT;
             case RIGHT:
@@ -62,18 +62,18 @@ public enum SideType {
     //USED ONLY WITH CORNERS AND THE EDGES CAN BE INFERRED FROM THERE
     List<SideType> lTMap(){
         switch (this){
-            case TOP:
+            case UP:
                 return Arrays.asList(SideType.LEFT, SideType.BACK, SideType.FRONT, SideType.RIGHT, SideType.BACK, SideType.RIGHT);
             case DOWN:
                 return Arrays.asList(SideType.LEFT, SideType.FRONT, SideType.BACK, SideType.RIGHT, SideType.FRONT, SideType.RIGHT);
             case LEFT:
-                return Arrays.asList(SideType.TOP, SideType.BACK, SideType.FRONT, SideType.DOWN, SideType.TOP, SideType.FRONT);
+                return Arrays.asList(SideType.UP, SideType.BACK, SideType.FRONT, SideType.DOWN, SideType.UP, SideType.FRONT);
             case RIGHT:
-                return Arrays.asList(SideType.TOP, SideType.FRONT, SideType.BACK, SideType.DOWN, SideType.TOP, SideType.BACK);
+                return Arrays.asList(SideType.UP, SideType.FRONT, SideType.BACK, SideType.DOWN, SideType.UP, SideType.BACK);
             case FRONT:
-                return Arrays.asList(SideType.TOP, SideType.LEFT, SideType.RIGHT, SideType.DOWN, SideType.TOP, SideType.RIGHT);
+                return Arrays.asList(SideType.UP, SideType.LEFT, SideType.RIGHT, SideType.DOWN, SideType.UP, SideType.RIGHT);
             default:
-                return Arrays.asList(SideType.TOP, SideType.RIGHT, SideType.LEFT, SideType.DOWN, SideType.TOP, SideType.LEFT);
+                return Arrays.asList(SideType.UP, SideType.RIGHT, SideType.LEFT, SideType.DOWN, SideType.UP, SideType.LEFT);
         }
     }
 

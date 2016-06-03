@@ -25,7 +25,7 @@ class Side {
 
     static {
         _sidePosition = new HashMap<>();
-        _sidePosition.put(SideType.TOP, Arrays.asList(1, 0));
+        _sidePosition.put(SideType.UP, Arrays.asList(1, 0));
         _sidePosition.put(SideType.DOWN, Arrays.asList(1, 2));
         _sidePosition.put(SideType.FRONT, Arrays.asList(1, 1));
         _sidePosition.put(SideType.BACK, Arrays.asList(3, 1));
@@ -101,8 +101,8 @@ class Side {
         double sideSize = Size();
         double padding =  _cubitPadding + (_lineWidth/2) + _canvasPadding;
         switch (sideType) {
-            case TOP:
-                return new double[]{sideSize * _sidePosition.get(SideType.TOP).get(0) + padding, sideSize * _sidePosition.get(SideType.TOP).get(1) + padding};
+            case UP:
+                return new double[]{sideSize * _sidePosition.get(SideType.UP).get(0) + padding, sideSize * _sidePosition.get(SideType.UP).get(1) + padding};
             case DOWN:
                 return new double[]{sideSize * _sidePosition.get(SideType.DOWN).get(0) + padding, sideSize * _sidePosition.get(SideType.DOWN).get(1) + padding};
             case LEFT:
