@@ -5,8 +5,12 @@
 import Cube.Canvas.CubeCanvas;
 import Cube.Cube;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -21,18 +25,29 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Cube cube = new Cube();
-            window = primaryStage;
-            window.setTitle("Rubik Learn");
 
             CubeCanvas canvas = new CubeCanvas();
             canvas.SetWidth(canvas.GetWidth());
             canvas.SetHeight(canvas.GetHeight());
             canvas.Render(cube);
-            Group root = new Group();
-            root.getChildren().add(canvas);
 
-            window.setScene(new Scene(root, 1080, 720));
+            Button clearBtn = new Button("Clear");
+            clearBtn.setOnAction(e -> canvas.getGraphicsContext2D().clearRect(0,0,canvas.getWidth(),canvas.getHeight()));
 
+            Button redrawBtn = new Button("Redraw");
+            redrawBtn.setOnAction(e -> canvas.Render(cube));
+
+            BorderPane root = new BorderPane();
+            HBox hb = new HBox();
+            hb.getChildren().addAll(clearBtn, redrawBtn);
+            hb.setAlignment(Pos.CENTER_LEFT);
+            root.setCenter(canvas);
+            root.setBottom(hb);
+            Scene scene = new Scene(root);
+
+            window = primaryStage;
+            window.setTitle("Rubik Learn");
+            window.setScene(scene);
             window.show();
         }catch (Exception e){
             e.printStackTrace();
