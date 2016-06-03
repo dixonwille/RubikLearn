@@ -38,8 +38,11 @@ public class Main extends Application {
             Button clearBtn = new Button("Clear");
             clearBtn.setOnAction(e -> canvas.Clear());
 
-            Button redrawBtn = new Button("Redraw");
-            redrawBtn.setOnAction(e -> canvas.Render(cube));
+            Button redrawBtn = new Button("Reset");
+            redrawBtn.setOnAction(e -> {
+                cube.Reset();
+                canvas.Render(cube);
+            });
 
             BorderPane root = new BorderPane();
             HBox hb = new HBox();

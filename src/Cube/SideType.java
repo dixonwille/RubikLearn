@@ -84,4 +84,13 @@ public enum SideType {
         }
         return s;
     }
+
+    static SideType GetByColor(ColorType color){
+        for(SideType side: SideType.values()){
+            if(side.GetDefaultColor() == color){
+                return side;
+            }
+        }
+        return null;
+    }
 }

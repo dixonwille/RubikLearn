@@ -53,6 +53,10 @@ public class Cube {
         }
     }
 
+    public void Reset(){
+        _cubits.forEach(Cubit::Reset);
+    }
+
     private void separateSides(){
         _sides = new ArrayList<>();
         for(SideType side: SideType.values()){

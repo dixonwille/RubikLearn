@@ -40,6 +40,13 @@ class Cubit{
         return false;
     }
 
+    void Reset(){
+        Map<SideType, ColorType> tmpColors = new HashMap<>(_colors);
+        for(Map.Entry<SideType, ColorType> sideColor: tmpColors.entrySet()){
+            _colors.put(SideType.GetByColor(sideColor.getValue()), _colors.remove(sideColor.getKey()));
+        }
+    }
+
     ColorType GetColor(SideType side){
         return _colors.get(side);
     }
