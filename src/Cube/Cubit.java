@@ -14,7 +14,7 @@ class Cubit{
     Cubit(SideType[] position) throws CubeException{
         _colors = new HashMap<>();
         //Initialize the type of cubit
-        CubitType type = CubitType.Find(position);
+        CubitType type = CubitType.find(position);
         if (type == null){
             throw new CubeException("Could not find cubit type for " + SideType.toString(position));
         }
@@ -22,7 +22,7 @@ class Cubit{
 
         //Set the default color (change later if need be)
         for(SideType side: position){
-            this._colors.put(side,side.GetDefaultColor());
+            this._colors.put(side,side.getDefaultColor());
         }
 
         //Check that we have a valid position set
@@ -31,7 +31,7 @@ class Cubit{
         }
     }
 
-    boolean IsOnSide(SideType side){
+    boolean isOnSide(SideType side){
         for(SideType cubitSide: this._colors.keySet()){
             if (cubitSide == side){
                 return true;
@@ -40,22 +40,22 @@ class Cubit{
         return false;
     }
 
-    void Reset(){
+    void reset(){
         Map<SideType, ColorType> tmpColors = new HashMap<>(_colors);
         for(Map.Entry<SideType, ColorType> sideColor: tmpColors.entrySet()){
-            _colors.put(SideType.GetByColor(sideColor.getValue()), _colors.remove(sideColor.getKey()));
+            _colors.put(SideType.getByColor(sideColor.getValue()), _colors.remove(sideColor.getKey()));
         }
     }
 
-    ColorType GetColor(SideType side){
+    ColorType getColor(SideType side){
         return _colors.get(side);
     }
 
-    List<SideType> GetSides(){
+    List<SideType> getSides(){
         return new ArrayList<>(this._colors.keySet());
     }
 
-    List<SideType> OtherSides(Cubit cubit){
+    List<SideType> otherSides(Cubit cubit){
         //This is so we do not modify the original cubits sides.
         List<SideType> otherSides = new ArrayList<>(this._colors.keySet());
         otherSides.removeAll(cubit._colors.keySet());
@@ -72,11 +72,11 @@ class Cubit{
         List<SideType> comparisonMap = ltMap.subList(0,4);
         List<SideType> tieBreaker = ltMap.subList(4,6);
         //The way the cube is made only sides left are opposite of each other.
-        List<SideType> thisDiff = this.OtherSides(query);
-        List<SideType> queryDiff = query.OtherSides(this);
+        List<SideType> thisDiff = this.otherSides(query);
+        List<SideType> queryDiff = query.otherSides(this);
 
         //Only compare cubits on the same sides
-        if(thisDiff.size() > CubitType.CORNER.GetNumberOfSides() - 1 || queryDiff.size() > CubitType.CORNER.GetNumberOfSides() - 1){
+        if(thisDiff.size() > CubitType.CORNER.getNumberOfSides() - 1 || queryDiff.size() > CubitType.CORNER.getNumberOfSides() - 1){
             throw new CubeException("Corners must have a side in common");
         }
 
@@ -91,7 +91,7 @@ class Cubit{
         for(int i = 0; i < thisDiff.size(); i++){
             //Should only compare opposite sides
             SideType thisSide = thisDiff.get(i);
-            SideType querySide = queryDiff.get(queryDiff.indexOf(thisSide.GetOpposite()));
+            SideType querySide = queryDiff.get(queryDiff.indexOf(thisSide.getOpposite()));
             if(i == 0){
                 previousAnswer = comparisonMap.indexOf(thisSide) < comparisonMap.indexOf(querySide);
             }else if(previousAnswer == comparisonMap.indexOf(thisSide) < comparisonMap.indexOf(querySide)){
@@ -111,7 +111,7 @@ class Cubit{
     }
 
     private boolean isValid(){
-        if(this._colors.entrySet().size() != this._type.GetNumberOfSides()){
+        if(this._colors.entrySet().size() != this._type.getNumberOfSides()){
             return false;
         }
 
@@ -122,7 +122,7 @@ class Cubit{
             if(sides.indexOf(sideColor.getKey()) > -1 || colors.indexOf(sideColor.getValue()) > -1){
                 return false;
                 //Check if the opposite Side or Color exists
-            }else if(sides.indexOf(sideColor.getKey().GetOpposite()) > -1 || colors.indexOf(sideColor.getKey().GetOpposite().GetDefaultColor()) > -1) {
+            }else if(sides.indexOf(sideColor.getKey().getOpposite()) > -1 || colors.indexOf(sideColor.getKey().getOpposite().getDefaultColor()) > -1) {
                 return false;
             }else{
                 sides.add(sideColor.getKey());
@@ -132,7 +132,7 @@ class Cubit{
         return true;
     }
 
-    static List<Cubit> GetCubitsOfType(CubitType type, List<Cubit> cubits){
+    static List<Cubit> getCubitsOfType(CubitType type, List<Cubit> cubits){
         List<Cubit> cubitsOfT = new ArrayList<>();
         cubits.forEach(cubit -> {
             if (cubit._type == type){

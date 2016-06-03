@@ -19,56 +19,48 @@ public class CubeCanvas extends Canvas{
         setDefaults();
     }
 
-    public void SetHeight(double height){
-        super.setHeight(height);
+    public void setCubitSize(double size){
+        Side.setSize(size);
     }
 
-    public void SetWidth(double width){
-        super.setWidth(width);
+    public void setCubitPadding(double padding){
+        Side.setPadding(padding);
     }
 
-    public void SetCubitSize(double size){
-        Side.SetSize(size);
-    }
-
-    public void SetCubitPadding(double padding){
-        Side.SetPadding(padding);
-    }
-
-    public void SetCanvasPadding(double padding) {
+    public void setCanvasPadding(double padding) {
         _canvasPadding = padding;
-        Side.SetCanvasPadding(_canvasPadding);
+        Side.setCanvasPadding(_canvasPadding);
     }
 
-    public void SetLineWidth(double lw){
+    public void setLineWidth(double lw){
         _gc.setLineWidth(lw);
-        Side.SetLineWidth(_gc.getLineWidth());
+        Side.setLineWidth(_gc.getLineWidth());
     }
 
-    public double GetCubeWidth(){
-        return Side.Size() * 4 + (_gc.getLineWidth()/2);
+    public double getCubeWidth(){
+        return Side.size() * 4 + (_gc.getLineWidth()/2);
     }
 
-    public double GetCubeHeight(){
-        return Side.Size() * 3 + (_gc.getLineWidth()/2);
+    public double getCubeHeight(){
+        return Side.size() * 3 + (_gc.getLineWidth()/2);
     }
 
-    public double GetCanvasWidth(){
-        return GetCubeWidth() + (_canvasPadding * 2);
+    public double getCanvasWidth(){
+        return getCubeWidth() + (_canvasPadding * 2);
     }
 
-    public double GetCanvasHeight(){
-        return GetCubeHeight() + (_canvasPadding * 2);
+    public double getCanvasHeight(){
+        return getCubeHeight() + (_canvasPadding * 2);
     }
 
-    public void Render(Cube.Cube cube){
-        this.Clear();
-        List<Cube.Side> sides = cube.GetSides();
+    public void render(Cube.Cube cube){
+        this.clear();
+        List<Cube.Side> sides = cube.getSides();
         sides.forEach(side -> _sides.add(new Side(side, _gc)));
-        _sides.forEach(Side::Render);
+        _sides.forEach(Side::render);
     }
 
-    public void Clear(){
+    public void clear(){
         _gc.clearRect(0,0,this.getWidth(),this.getHeight());
         _sides.clear();
     }
@@ -76,10 +68,10 @@ public class CubeCanvas extends Canvas{
     private void setDefaults(){
         _gc = this.getGraphicsContext2D();
         _gc.setStroke(Default._strokeColor);
-        this.SetLineWidth(Default._lineWidth);
-        this.SetCanvasPadding(Default._canvasPadding);
+        this.setLineWidth(Default._lineWidth);
+        this.setCanvasPadding(Default._canvasPadding);
         _sides = new ArrayList<>();
-        this.SetCubitSize(Default._cubitSize);
-        this.SetCubitPadding(Default._cubitPadding);
+        this.setCubitSize(Default._cubitSize);
+        this.setCubitPadding(Default._cubitPadding);
     }
 }

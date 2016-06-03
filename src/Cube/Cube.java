@@ -20,7 +20,7 @@ public class Cube {
         }
     }
 
-    public List<Side> GetSides(){
+    public List<Side> getSides(){
         return _sides;
     }
 
@@ -31,18 +31,18 @@ public class Cube {
         for(SideType centerSide: SideType.values()){
             _cubits.add(new Cubit(new SideType[]{centerSide})); //Create the center cubit
 
-            List<SideType> possibleEdges = centerSide.GetPossible();
+            List<SideType> possibleEdges = centerSide.getPossible();
             possibleEdges.removeAll(sidesFinished); //Remove all sides that are already finished.
 
             List<SideType> edgesFinished = new ArrayList<>();
             for(SideType edgeSide: possibleEdges){
                 _cubits.add(new Cubit(new SideType[]{centerSide,edgeSide})); //Create the edge for centerSide and edgeSide
 
-                List<SideType> possibleCorners = edgeSide.GetPossible();
+                List<SideType> possibleCorners = edgeSide.getPossible();
                 possibleCorners.removeAll(sidesFinished); //Remove all sides that are already finished.
                 possibleCorners.removeAll(edgesFinished); //Remove the edges that we completed.
                 possibleCorners.remove(centerSide); //Remove the main side we are currently on.
-                possibleCorners.remove(centerSide.GetOpposite()); //Remove the impossible side as well.
+                possibleCorners.remove(centerSide.getOpposite()); //Remove the impossible side as well.
 
                 for(SideType cornerSide: possibleCorners){
                     _cubits.add(new Cubit(new SideType[]{centerSide,edgeSide,cornerSide})); //Create the corner for centerSide, edgeSide and cornerSide
@@ -53,14 +53,20 @@ public class Cube {
         }
     }
 
-    public void Reset(){
-        _cubits.forEach(Cubit::Reset);
+    public void reset(){
+        _cubits.forEach(Cubit::reset);
+    }
+
+    public void Move(MoveType move){
+        switch (move){
+
+        }
     }
 
     private void separateSides(){
         _sides = new ArrayList<>();
         for(SideType side: SideType.values()){
-            _sides.add(new Side(side,Side.GetCubits(side,_cubits)));
+            _sides.add(new Side(side,Side.getCubits(side,_cubits)));
         }
     }
 

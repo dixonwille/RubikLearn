@@ -35,17 +35,17 @@ class Side {
 
     Side(Cube.Side side, GraphicsContext gc) {
         _gc = gc;
-        _side = side.GetSideType();
-        _colorMatrix = side.GetColorMatrix();
+        _side = side.getSideType();
+        _colorMatrix = side.getColorMatrix();
     }
 
-    void Render() {
-        double[] cords = GetStartingPosition(_side);
+    void render() {
+        double[] cords = getStartingPosition(_side);
         //includes padding and line width
         double totalSize = _cubitSize + _cubitPadding + (_lineWidth/2);
         for(int r = 0; r < _colorMatrix.length; r++){
             for(int c = 0; c < _colorMatrix.length; c++){
-                Color paintColor = GetPaintColor(_colorMatrix[c][r]);
+                Color paintColor = getPaintColor(_colorMatrix[c][r]);
                 _gc.setFill(paintColor);
                 _gc.fillRect((cords[0] + (c * totalSize)), (cords[1] + (r * totalSize)), _cubitSize, _cubitSize);
                 _gc.strokeRect((cords[0] + (c * totalSize)), (cords[1] + (r * totalSize)), _cubitSize, _cubitSize);
@@ -59,28 +59,28 @@ class Side {
     }
 
     //Static because all sides will have the same size
-    static double Size() {
+    static double size() {
         //includes padding only on one of the sides of the side
         return (_cubitsOnSide * (_cubitSize + _cubitPadding + (_lineWidth/2)));
     }
 
-    static void SetSize(double size) {
+    static void setSize(double size) {
         _cubitSize = size;
     }
 
-    static void SetPadding(double padding) {
+    static void setPadding(double padding) {
         _cubitPadding = padding;
     }
 
-    static void SetLineWidth(double lw){
+    static void setLineWidth(double lw){
         _lineWidth = lw;
     }
 
-    static void SetCanvasPadding(double padding) {
+    static void setCanvasPadding(double padding) {
         _canvasPadding = padding;
     }
 
-    private static Color GetPaintColor(ColorType colorType) {
+    private static Color getPaintColor(ColorType colorType) {
         switch (colorType) {
             case YELLOW:
                 return Color.YELLOW;
@@ -97,8 +97,8 @@ class Side {
         }
     }
 
-    private static double[] GetStartingPosition(SideType sideType) {
-        double sideSize = Size();
+    private static double[] getStartingPosition(SideType sideType) {
+        double sideSize = size();
         double padding =  _cubitPadding + (_lineWidth/2) + _canvasPadding;
         switch (sideType) {
             case UP:

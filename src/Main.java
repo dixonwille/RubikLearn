@@ -6,7 +6,6 @@ import Cube.Canvas.CubeCanvas;
 import Cube.Cube;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -29,19 +28,19 @@ public class Main extends Application {
             CubeCanvas canvas = new CubeCanvas();
             //Must first allow defaults to be set.
             //Then change any padding and sizes as need be.
-            //Then update the canvases width and height using the GetCanvasWidth and Height Methods
-            canvas.SetWidth(canvas.GetCanvasWidth());
-            canvas.SetHeight(canvas.GetCanvasHeight());
-            //Render the cube
-            canvas.Render(cube);
+            //Then update the canvases width and height using the getCanvasWidth and Height Methods
+            canvas.setWidth(canvas.getCanvasWidth());
+            canvas.setHeight(canvas.getCanvasHeight());
+            //render the cube
+            canvas.render(cube);
 
             Button clearBtn = new Button("Clear");
-            clearBtn.setOnAction(e -> canvas.Clear());
+            clearBtn.setOnAction(e -> canvas.clear());
 
             Button redrawBtn = new Button("Reset");
             redrawBtn.setOnAction(e -> {
-                cube.Reset();
-                canvas.Render(cube);
+                cube.reset();
+                canvas.render(cube);
             });
 
             BorderPane root = new BorderPane();

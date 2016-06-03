@@ -19,26 +19,26 @@ public class Side{
         orderCubits();
     }
 
-    public ColorType[][] GetColorMatrix(){
+    public ColorType[][] getColorMatrix(){
         int size = _orderedCubits.length;
         ColorType[][] colors = new ColorType[size][size];
         for(int r = 0; r < size; r++){
             for(int c = 0; c < size; c++){
-                colors[c][r] = _orderedCubits[c][r].GetColor(_side);
+                colors[c][r] = _orderedCubits[c][r].getColor(_side);
             }
         }
         return colors;
     }
 
-    public SideType GetSideType(){
+    public SideType getSideType(){
         return _side;
     }
 
     private void orderCubits(){
         _orderedCubits = new Cubit[3][3];
-        Cubit center = Cubit.GetCubitsOfType(CubitType.CENTER, _cubits).get(0); //Only one center for each side
-        List<Cubit> edges = Cubit.GetCubitsOfType(CubitType.EDGE, _cubits);
-        List<Cubit> corners = Cubit.GetCubitsOfType(CubitType.CORNER, _cubits);
+        Cubit center = Cubit.getCubitsOfType(CubitType.CENTER, _cubits).get(0); //Only one center for each side
+        List<Cubit> edges = Cubit.getCubitsOfType(CubitType.EDGE, _cubits);
+        List<Cubit> corners = Cubit.getCubitsOfType(CubitType.CORNER, _cubits);
         _orderedCubits[1][1] = center;
 
         //Compare corners to each other first the infer the edges from those corners.
@@ -69,14 +69,14 @@ public class Side{
                     }
 
                     //Only need to use one corner to find edge after I find what side is not identical to the other corner.
-                    List<SideType> diffSides = queryCorners.get(0).OtherSides(queryCorners.get(1));
-                    List<SideType> cornerSides = queryCorners.get(0).GetSides();
+                    List<SideType> diffSides = queryCorners.get(0).otherSides(queryCorners.get(1));
+                    List<SideType> cornerSides = queryCorners.get(0).getSides();
                     cornerSides.removeAll(diffSides);
                     cornerSides.remove(_side); //Should only contain one corner now.
 
                     //find the proper edge to place in this position
                     for(Cubit edge:edges){
-                        if(edge.IsOnSide(cornerSides.get(0))){
+                        if(edge.isOnSide(cornerSides.get(0))){
                             _orderedCubits[c][r] = edge;
                         }
                     }
@@ -100,10 +100,10 @@ public class Side{
         return corners;
     }
 
-    static List<Cubit> GetCubits(SideType side,List<Cubit> cubits){
+    static List<Cubit> getCubits(SideType side, List<Cubit> cubits){
         List<Cubit> sideCubit = new ArrayList<>();
         cubits.forEach(cubit -> {
-            if(cubit.IsOnSide(side)){
+            if(cubit.isOnSide(side)){
                 sideCubit.add(cubit);
             }
         });

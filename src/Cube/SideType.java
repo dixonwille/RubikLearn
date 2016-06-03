@@ -21,11 +21,11 @@ public enum SideType {
         this._defaultColor = color;
     }
 
-    ColorType GetDefaultColor(){
+    ColorType getDefaultColor(){
         return this._defaultColor;
     }
 
-    SideType GetOpposite(){
+    SideType getOpposite(){
         switch (this){
             case UP:
                 return DOWN;
@@ -43,10 +43,10 @@ public enum SideType {
     }
 
     //Gets a list of possible other sides from this side
-    List<SideType> GetPossible(){
+    List<SideType> getPossible(){
         List<SideType> possible = new ArrayList<>();
         for(SideType side: SideType.values()){
-            if(side != this && side != this.GetOpposite()){
+            if(side != this && side != this.getOpposite()){
                 possible.add(side);
             }
         }
@@ -85,9 +85,9 @@ public enum SideType {
         return s;
     }
 
-    static SideType GetByColor(ColorType color){
+    static SideType getByColor(ColorType color){
         for(SideType side: SideType.values()){
-            if(side.GetDefaultColor() == color){
+            if(side.getDefaultColor() == color){
                 return side;
             }
         }

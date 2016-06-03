@@ -14,13 +14,13 @@ enum CubitType {
         this._sides = sides;
     }
 
-    int GetNumberOfSides(){
+    int getNumberOfSides(){
         return this._sides;
     }
 
-    static CubitType Find(SideType[] position){
+    static CubitType find(SideType[] position){
         for(CubitType cubit: CubitType.values()){
-            if(cubit.GetNumberOfSides() == position.length){
+            if(cubit.getNumberOfSides() == position.length){
                 return cubit;
             }
         }
