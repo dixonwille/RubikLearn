@@ -2,8 +2,10 @@ package Cube.Canvas;
 
 import Cube.ColorType;
 import Cube.SideType;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,7 +21,7 @@ class Side {
     private static final Map<SideType, List<Integer>> _sidePosition;
     private SideType _side;
     static private final int _cubitsOnSide = 3;
-    static private double _cubitSize, _cubitPadding, _lineWidth;
+    static private double _cubitSize, _cubitPadding, _lineWidth, _canvasPadding;
 
     static {
         _sidePosition = new HashMap<>();
@@ -47,6 +49,11 @@ class Side {
                 _gc.setFill(paintColor);
                 _gc.fillRect((cords[0] + (c * totalSize)), (cords[1] + (r * totalSize)), _cubitSize, _cubitSize);
                 _gc.strokeRect((cords[0] + (c * totalSize)), (cords[1] + (r * totalSize)), _cubitSize, _cubitSize);
+                if(r == 1 && c == 1){
+                    _gc.setTextAlign(TextAlignment.CENTER);
+                    _gc.setTextBaseline(VPos.CENTER);
+                    _gc.strokeText(String.valueOf(_side.toString().charAt(0)), (cords[0] + (c * totalSize) + (totalSize/2)), (cords[1] + (r * totalSize) + (totalSize/2)));
+                }
             }
         }
     }
@@ -69,6 +76,10 @@ class Side {
         _lineWidth = lw;
     }
 
+    static void SetCanvasPadding(double padding) {
+        _canvasPadding = padding;
+    }
+
     private static Color GetPaintColor(ColorType colorType) {
         switch (colorType) {
             case YELLOW:
@@ -88,7 +99,7 @@ class Side {
 
     private static double[] GetStartingPosition(SideType sideType) {
         double sideSize = Size();
-        double padding =  _cubitPadding + (_lineWidth/2);
+        double padding =  _cubitPadding + (_lineWidth/2) + _canvasPadding;
         switch (sideType) {
             case TOP:
                 return new double[]{sideSize * _sidePosition.get(SideType.TOP).get(0) + padding, sideSize * _sidePosition.get(SideType.TOP).get(1) + padding};

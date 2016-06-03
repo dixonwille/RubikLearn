@@ -12,14 +12,10 @@ import java.util.List;
 public class CubeCanvas extends Canvas{
     private GraphicsContext _gc;
     private List<Side> _sides;
+    private double _canvasPadding;
 
     public CubeCanvas(){
         super();
-        setDefaults();
-    }
-
-    public CubeCanvas(double width, double height){
-        super(width, height);
         setDefaults();
     }
 
@@ -39,32 +35,51 @@ public class CubeCanvas extends Canvas{
         Side.SetPadding(padding);
     }
 
+    public void SetCanvasPadding(double padding) {
+        _canvasPadding = padding;
+        Side.SetCanvasPadding(_canvasPadding);
+    }
+
     public void SetLineWidth(double lw){
         _gc.setLineWidth(lw);
         Side.SetLineWidth(_gc.getLineWidth());
     }
 
-    public double GetWidth(){
+    public double GetCubeWidth(){
         return Side.Size() * 4 + (_gc.getLineWidth()/2);
     }
 
-    public double GetHeight(){
+    public double GetCubeHeight(){
         return Side.Size() * 3 + (_gc.getLineWidth()/2);
     }
 
+    public double GetCanvasWidth(){
+        return GetCubeWidth() + (_canvasPadding * 2);
+    }
+
+    public double GetCanvasHeight(){
+        return GetCubeHeight() + (_canvasPadding * 2);
+    }
+
     public void Render(Cube.Cube cube){
-        _sides.clear();
+        this.Clear();
         List<Cube.Side> sides = cube.GetSides();
         sides.forEach(side -> _sides.add(new Side(side, _gc)));
         _sides.forEach(Side::Render);
+    }
+
+    public void Clear(){
+        _gc.clearRect(0,0,this.getWidth(),this.getHeight());
+        _sides.clear();
     }
 
     private void setDefaults(){
         _gc = this.getGraphicsContext2D();
         _gc.setStroke(Default._strokeColor);
         this.SetLineWidth(Default._lineWidth);
+        this.SetCanvasPadding(Default._canvasPadding);
         _sides = new ArrayList<>();
-        Side.SetSize(Default._cubitSize);
-        Side.SetPadding(Default._cubitPadding);
+        this.SetCubitSize(Default._cubitSize);
+        this.SetCubitPadding(Default._cubitPadding);
     }
 }

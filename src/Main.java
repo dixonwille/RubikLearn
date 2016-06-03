@@ -27,12 +27,16 @@ public class Main extends Application {
             Cube cube = new Cube();
 
             CubeCanvas canvas = new CubeCanvas();
-            canvas.SetWidth(canvas.GetWidth());
-            canvas.SetHeight(canvas.GetHeight());
+            //Must first allow defaults to be set.
+            //Then change any padding and sizes as need be.
+            //Then update the canvases width and height using the GetCanvasWidth and Height Methods
+            canvas.SetWidth(canvas.GetCanvasWidth());
+            canvas.SetHeight(canvas.GetCanvasHeight());
+            //Render the cube
             canvas.Render(cube);
 
             Button clearBtn = new Button("Clear");
-            clearBtn.setOnAction(e -> canvas.getGraphicsContext2D().clearRect(0,0,canvas.getWidth(),canvas.getHeight()));
+            clearBtn.setOnAction(e -> canvas.Clear());
 
             Button redrawBtn = new Button("Redraw");
             redrawBtn.setOnAction(e -> canvas.Render(cube));
