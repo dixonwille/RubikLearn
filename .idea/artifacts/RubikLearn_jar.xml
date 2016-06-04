@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="RubikLearn:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RubikLearn_jar</output-path>
+    <root id="archive" name="RubikLearn.jar">
+      <element id="module-output" name="RubikLearn" />
+    </root>
+  </artifact>
+</component>
