@@ -41,10 +41,9 @@ class Cubit{
     }
 
     void reset(){
-        Map<SideType, ColorType> tmpColors = new HashMap<>(_colors);
-        for(Map.Entry<SideType, ColorType> sideColor: tmpColors.entrySet()){
-            _colors.put(SideType.getByColor(sideColor.getValue()), _colors.remove(sideColor.getKey()));
-        }
+        List<ColorType> colors = new ArrayList<>(_colors.values());
+        this._colors.clear();
+        colors.forEach(color -> this._colors.put(SideType.getByColor(color), color));
     }
 
     ColorType getColor(SideType side){
@@ -108,6 +107,56 @@ class Cubit{
 
         //How did you get here? I went through all possibilities
         return false;
+    }
+
+    void move(MoveType move){
+        if (this.isEffected(move)) {
+            List<SideType> direction = move.getClockWise();
+            if(move.toString().length() == 3){
+                Collections.reverse(direction);
+            }
+
+
+            Map<SideType,ColorType> tmpColors = new HashMap<>();
+            for(int i = 0; i < direction.size(); i++){
+                SideType oldSide = direction.get(i);
+                SideType newSide = direction.get(i == direction.size() - 1 ? 0 : i + 1);
+
+                if(this._colors.containsKey(oldSide)) {
+                    tmpColors.put(newSide, this._colors.remove(oldSide));
+                }
+            }
+
+            for(Map.Entry<SideType,ColorType> entry: tmpColors.entrySet()){
+                this._colors.put(entry.getKey(), entry.getValue());
+            }
+        }
+    }
+
+    private boolean isEffected(MoveType move){
+        List<SideType> effectedSides = move.getEffectedSides();
+
+        if(effectedSides.size() == 1){
+            return this._type != CubitType.CENTER && this._colors.containsKey(effectedSides.get(0));
+        }else{
+            if(this._type == CubitType.CORNER){
+                return false;
+            }
+
+            //if we are working with an edge all sides must be the same
+            //if we are working with a center only one side must match
+            int matchedSides = 0;
+            for(SideType side: effectedSides) {
+                if (this._colors.containsKey(side)) {
+                    matchedSides += 1;
+                }
+
+                if (matchedSides == this._type.getNumberOfSides()) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     private boolean isValid(){

@@ -3,6 +3,7 @@
  */
 
 import Cube.Canvas.CubeCanvas;
+import Cube.MoveType;
 import Cube.Cube;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -34,18 +35,25 @@ public class Main extends Application {
             //render the cube
             canvas.render(cube);
 
-            Button clearBtn = new Button("Clear");
-            clearBtn.setOnAction(e -> canvas.clear());
+            BorderPane root = new BorderPane();
+            HBox hb = new HBox();
 
-            Button redrawBtn = new Button("Reset");
-            redrawBtn.setOnAction(e -> {
+            for(MoveType mt: MoveType.values()) {
+                Button btn = new Button(mt.toString());
+                btn.setOnAction(e -> {
+                    cube.move(mt);
+                    canvas.render(cube);
+                });
+                hb.getChildren().add(btn);
+            }
+
+            Button resetBtn = new Button("Reset");
+            resetBtn.setOnAction(e -> {
                 cube.reset();
                 canvas.render(cube);
             });
+            hb.getChildren().add(resetBtn);
 
-            BorderPane root = new BorderPane();
-            HBox hb = new HBox();
-            hb.getChildren().addAll(clearBtn, redrawBtn);
             hb.setAlignment(Pos.CENTER_LEFT);
             root.setCenter(canvas);
             root.setBottom(hb);

@@ -55,12 +55,12 @@ public class Cube {
 
     public void reset(){
         _cubits.forEach(Cubit::reset);
+        separateSides();
     }
 
-    public void Move(MoveType move){
-        switch (move){
-
-        }
+    public void move(MoveType move){
+        _cubits.forEach(cubit -> cubit.move(move));
+        separateSides();
     }
 
     private void separateSides(){
@@ -69,6 +69,4 @@ public class Cube {
             _sides.add(new Side(side,Side.getCubits(side,_cubits)));
         }
     }
-
-
 }

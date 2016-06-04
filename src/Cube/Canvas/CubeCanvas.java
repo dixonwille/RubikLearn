@@ -55,6 +55,7 @@ public class CubeCanvas extends Canvas{
 
     public void render(Cube.Cube cube){
         this.clear();
+        _sides.clear();
         List<Cube.Side> sides = cube.getSides();
         sides.forEach(side -> _sides.add(new Side(side, _gc)));
         _sides.forEach(Side::render);

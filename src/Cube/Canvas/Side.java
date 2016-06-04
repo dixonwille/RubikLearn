@@ -47,12 +47,12 @@ class Side {
             for(int c = 0; c < _colorMatrix.length; c++){
                 Color paintColor = getPaintColor(_colorMatrix[c][r]);
                 _gc.setFill(paintColor);
-                _gc.fillRect((cords[0] + (c * totalSize)), (cords[1] + (r * totalSize)), _cubitSize, _cubitSize);
-                _gc.strokeRect((cords[0] + (c * totalSize)), (cords[1] + (r * totalSize)), _cubitSize, _cubitSize);
+                _gc.fillRect((cords[0] + (r * totalSize)), (cords[1] + (c * totalSize)), _cubitSize, _cubitSize);
+                _gc.strokeRect((cords[0] + (r * totalSize)), (cords[1] + (c * totalSize)), _cubitSize, _cubitSize);
                 if(r == 1 && c == 1){
                     _gc.setTextAlign(TextAlignment.CENTER);
                     _gc.setTextBaseline(VPos.CENTER);
-                    _gc.strokeText(String.valueOf(_side.toString().charAt(0)), (cords[0] + (c * totalSize) + (totalSize/2)), (cords[1] + (r * totalSize) + (totalSize/2)));
+                    _gc.strokeText(String.valueOf(_side.toString().charAt(0)), (cords[0] + (r * totalSize) + (totalSize/2)), (cords[1] + (c * totalSize) + (totalSize/2)));
                 }
             }
         }

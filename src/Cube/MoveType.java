@@ -35,4 +35,30 @@ public enum MoveType {
     List<SideType> getEffectedSides(){
         return _effectedSides;
     }
+
+    List<SideType> getClockWise(){
+        switch (this){
+            case FC:
+            case FCC:
+            case SC:
+            case SCC:
+                return Arrays.asList(SideType.UP,SideType.RIGHT,SideType.DOWN,SideType.LEFT);
+            case BC:
+            case BCC:
+                return Arrays.asList(SideType.UP,SideType.LEFT,SideType.DOWN,SideType.RIGHT);
+            case LC:
+            case LCC:
+            case MC:
+            case MCC:
+                return Arrays.asList(SideType.UP,SideType.FRONT,SideType.DOWN,SideType.BACK);
+            case RC:
+            case RCC:
+                return Arrays.asList(SideType.UP,SideType.BACK,SideType.DOWN,SideType.FRONT);
+            case UC:
+            case UCC:
+                return Arrays.asList(SideType.FRONT,SideType.LEFT,SideType.BACK,SideType.RIGHT);
+            default:
+                return Arrays.asList(SideType.FRONT,SideType.RIGHT,SideType.BACK,SideType.LEFT);
+        }
+    }
 }
