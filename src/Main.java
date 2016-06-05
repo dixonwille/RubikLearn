@@ -36,6 +36,7 @@ public class Main extends Application {
         try {
             _cube = new Cube();
             _canvas = new CubeCanvas(_cube);
+            CubeEventHandler cubeEvent = new CubeEventHandler(_cube);
 
             //Must first allow defaults to be set.
             //Then change any padding and sizes as need be.
@@ -48,13 +49,16 @@ public class Main extends Application {
             //Place for all layouts to be handled
             BorderPane root = new BorderPane();
 
+            //Create my buttons
             GridPane buttonLayout = createButtons();
 
             root.setCenter(_canvas);
             root.setRight(buttonLayout);
             Scene scene = new Scene(root);
             scene.getStylesheets().add("styles/rubikLearnStyle.css");
-            //Listen for key presses to do things accordingly
+
+            scene.setOnKeyPressed(cubeEvent);
+            scene.setOnKeyReleased(cubeEvent);
 
             primaryStage.setTitle("Rubik Learn");
             primaryStage.setScene(scene);

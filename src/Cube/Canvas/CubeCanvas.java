@@ -1,7 +1,6 @@
 package Cube.Canvas;
 
 import Cube.ChangeListener;
-import Cube.MoveType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
