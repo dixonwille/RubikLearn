@@ -1,5 +1,7 @@
 package Cube.Canvas;
 
+import Cube.ChangeListener;
+import Cube.MoveType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -9,13 +11,16 @@ import java.util.List;
 /**
  * Created by dixon on 5/31/2016.
  */
-public class CubeCanvas extends Canvas{
+public class CubeCanvas extends Canvas implements ChangeListener{
     private GraphicsContext _gc;
     private List<Side> _sides;
     private double _canvasPadding;
+    private Cube.Cube _cube;
 
-    public CubeCanvas(){
+    public CubeCanvas(Cube.Cube cube){
         super();
+        _cube = cube;
+        cube.addMoveListener(this);
         setDefaults();
     }
 
@@ -53,10 +58,10 @@ public class CubeCanvas extends Canvas{
         return getCubeHeight() + (_canvasPadding * 2);
     }
 
-    public void render(Cube.Cube cube){
+    public void render(){
         this.clear();
         _sides.clear();
-        List<Cube.Side> sides = cube.getSides();
+        List<Cube.Side> sides = _cube.getSides();
         sides.forEach(side -> _sides.add(new Side(side, _gc)));
         _sides.forEach(Side::render);
     }
@@ -74,5 +79,10 @@ public class CubeCanvas extends Canvas{
         _sides = new ArrayList<>();
         this.setCubitSize(Default._cubitSize);
         this.setCubitPadding(Default._cubitPadding);
+    }
+
+    @Override
+    public void Changed() {
+        render();
     }
 }

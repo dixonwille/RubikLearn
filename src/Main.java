@@ -26,7 +26,6 @@ public class Main extends Application {
 
     private Cube _cube;
     private CubeCanvas _canvas;
-    private MoveType _mt = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -36,7 +35,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             _cube = new Cube();
-            _canvas = new CubeCanvas();
+            _canvas = new CubeCanvas(_cube);
 
             //Must first allow defaults to be set.
             //Then change any padding and sizes as need be.
@@ -44,7 +43,7 @@ public class Main extends Application {
             _canvas.setWidth(_canvas.getCanvasWidth());
             _canvas.setHeight(_canvas.getCanvasHeight());
             //render the cube
-            _canvas.render(_cube);
+            _canvas.render();
 
             //Place for all layouts to be handled
             BorderPane root = new BorderPane();
@@ -56,8 +55,6 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             scene.getStylesheets().add("styles/rubikLearnStyle.css");
             //Listen for key presses to do things accordingly
-            scene.setOnKeyPressed(this::keyEvent);
-            scene.setOnKeyReleased(this::keyEvent);
 
             primaryStage.setTitle("Rubik Learn");
             primaryStage.setScene(scene);
@@ -65,49 +62,6 @@ public class Main extends Application {
         }catch (Exception e){
             e.printStackTrace();
             System.exit(1);
-        }
-    }
-
-    private void keyEvent(KeyEvent event){
-        if(event.getEventType().getName() == "KEY_PRESSED") {
-            switch (event.getText().toLowerCase()) {
-                case "f":
-                    _mt = event.isShiftDown() ? MoveType.FCC : MoveType.FC;
-                    break;
-                case "b":
-                    _mt = event.isShiftDown() ? MoveType.BCC : MoveType.BC;
-                    break;
-                case "l":
-                    _mt = event.isShiftDown() ? MoveType.LCC : MoveType.LC;
-                    break;
-                case "r":
-                    _mt = event.isShiftDown() ? MoveType.RCC : MoveType.RC;
-                    break;
-                case "u":
-                    _mt = event.isShiftDown() ? MoveType.UCC : MoveType.UC;
-                    break;
-                case "d":
-                    _mt = event.isShiftDown() ? MoveType.DCC : MoveType.DC;
-                    break;
-                case "m":
-                    _mt = event.isShiftDown() ? MoveType.MCC : MoveType.MC;
-                    break;
-                case "s":
-                    _mt = event.isShiftDown() ? MoveType.SCC : MoveType.SC;
-                    break;
-                case "e":
-                    _mt = event.isShiftDown() ? MoveType.ECC : MoveType.EC;
-                    break;
-                default:
-                    _mt = null;
-                    break;
-            }
-        }
-
-        if(event.getEventType().getName() == "KEY_RELEASED" && _mt != null){
-            _cube.move(_mt);
-            _canvas.render(_cube);
-            _mt = null;
         }
     }
 
@@ -142,7 +96,6 @@ public class Main extends Application {
             Button btn = new Button(mt.toString());
             btn.setOnAction(e -> {
                 _cube.move(mt);
-                _canvas.render(_cube);
             });
             //Add Styles to button depending on where they are
             if(position[0]%3 == 0){
@@ -172,7 +125,6 @@ public class Main extends Application {
         Button resetBtn = new Button("Reset");
         resetBtn.setOnAction(e -> {
             _cube.reset();
-            _canvas.render(_cube);
         });
 
         //Have the reset button positioned in the center of the center two columns
