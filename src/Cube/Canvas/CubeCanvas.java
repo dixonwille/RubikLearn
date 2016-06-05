@@ -19,7 +19,7 @@ public class CubeCanvas extends Canvas implements ChangeListener{
     public CubeCanvas(Cube.Cube cube){
         super();
         _cube = cube;
-        cube.addMoveListener(this);
+        cube.addChangeListener(this);
         setDefaults();
     }
 

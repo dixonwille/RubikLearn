@@ -31,7 +31,7 @@ public class Cube {
         changed();
     }
 
-    public void addMoveListener(ChangeListener listener){
+    public void addChangeListener(ChangeListener listener){
         _moveListeners.add(listener);
     }
 
